@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "format": "prettier --write --single-quote --semi false --list-different --print-width 80 src/**/*.jsx",
+    "format": "prettier --write --single-quote --semi false --list-different --print-width 80 *.js",
+    "format:components": "prettier --write --single-quote --semi false --list-different --print-width 80 ./components/**/*.js",
     "lint": "eslint ."
   },
   "dependencies": {
