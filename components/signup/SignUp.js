@@ -12,14 +12,14 @@ import {
 import {Link} from 'react-router-native'
 
 import bgImage from '../../static/images/form-bg.png'
-const SignIn = () => {
+const SignUp = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={bgImage} style={styles.image}></Image>
       </View>
       <View style={styles.formContainer}>
-        <Text style={styles.formRow1}>Sign In</Text>
+        <Text style={styles.formRow1}>Sign Up</Text>
         <View style={styles.formRow2}>
           <TextInput
             placeholder="Email Address"
@@ -40,10 +40,10 @@ const SignIn = () => {
           </Pressable>
         </View>
         <View style={styles.formRow5}>
-            <Link to="/signup">
-              <Text>Sign Up</Text>
+          <Link to="/">
+              <Text>Sign In</Text>
             </Link>
-            <Text>here</Text>
+          <Text>here</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -106,4 +106,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SignIn
+export default SignUp

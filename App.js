@@ -4,14 +4,23 @@
  */
 
 import React from 'react'
-import {SafeAreaView, StyleSheet} from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
+import { NativeRouter, Switch, Route } from 'react-router-native'
 import SignIn from './components/signin/SignIn.js'
+import SignUp from './components/signup/SignUp.js'
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <SignIn />
-    </SafeAreaView>
+    <NativeRouter>
+      <SafeAreaView>
+        <Switch>
+          <Route exact path='/' component={SignIn} />
+          <Route path='/signup'>
+            <SignUp />
+          </Route>
+        </Switch>
+      </SafeAreaView>
+    </NativeRouter>
   )
 }
 
