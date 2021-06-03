@@ -40,10 +40,10 @@ const SignIn = () => {
           </Pressable>
         </View>
         <View style={styles.formRow5}>
-            <Link to="/signup">
-              <Text>Sign Up</Text>
-            </Link>
-            <Text>here</Text>
+          <Link to="/signup">
+            <Text>Sign Up</Text>
+          </Link>
+          <Text>here</Text>
         </View>
       </View>
     </SafeAreaView>

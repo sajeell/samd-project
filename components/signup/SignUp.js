@@ -41,8 +41,8 @@ const SignUp = () => {
         </View>
         <View style={styles.formRow5}>
           <Link to="/">
-              <Text>Sign In</Text>
-            </Link>
+            <Text>Sign In</Text>
+          </Link>
           <Text>here</Text>
         </View>
       </View>
