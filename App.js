@@ -6,6 +6,7 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { NativeRouter, Switch, Route } from 'react-router-native'
+import CourseDetails from './components/course-details/CourseDetails.js'
 import Header from './components/header/Header.js'
 // import Dashboard from './components/dashboard/Dashboard.js'
 // import SignIn from './components/signin/SignIn.js'
@@ -16,7 +17,11 @@ const App = () => {
     <NativeRouter>
       <SafeAreaView>
         <Switch>
-          <Route exact path='/' component={Header} />
+          <Route exact path='/'>
+            <Header />
+            <CourseDetails />
+            {/* <Dashboard /> */}
+          </Route>
           <Route path='/signup'>
             <SignUp />
           </Route>
