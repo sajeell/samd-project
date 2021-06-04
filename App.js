@@ -6,8 +6,9 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { NativeRouter, Switch, Route } from 'react-router-native'
-import CourseDetails from './components/course-details/CourseDetails.js'
+// import CourseDetails from './components/course-details/CourseDetails.js'
 import Header from './components/header/Header.js'
+import Payment from './components/payment/Payment.js'
 // import Dashboard from './components/dashboard/Dashboard.js'
 // import SignIn from './components/signin/SignIn.js'
 import SignUp from './components/signup/SignUp.js'
@@ -19,7 +20,8 @@ const App = () => {
         <Switch>
           <Route exact path='/'>
             <Header />
-            <CourseDetails />
+            <Payment />
+            {/* <CourseDetails /> */}
             {/* <Dashboard /> */}
           </Route>
           <Route path='/signup'>
