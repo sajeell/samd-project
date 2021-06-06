@@ -1,6 +1,13 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native'
-import { RadioButton } from 'react-native-paper'
+import React, {useState} from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native'
+import {RadioButton} from 'react-native-paper'
 
 const Payment = () => {
   const [isCard, setIsCard] = useState(false)
@@ -117,38 +124,37 @@ const breadCrumbText = {
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
   breadCrumb: breadCrumb,
   breadCrumbText: breadCrumbText,
   title: {
     marginTop: 20,
     fontSize: 17,
-    color: darkColor
+    color: darkColor,
   },
   heading: {
     color: darkColor,
     marginTop: 20,
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 14,
   },
   paymentTop: {
-    marginLeft: 30
+    marginLeft: 30,
   },
   borderDiv: {
     width: 200,
     paddingTop: 12,
     borderBottomColor: 'black',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   personalDetails: {},
   inputRow: {
-    display: 'flex'
+    display: 'flex',
   },
   inputTitle: {
     color: darkColor,
     fontSize: 14,
-    marginTop: 20
+    marginTop: 20,
   },
   paymentInput: {
     color: darkColor,
@@ -156,35 +162,35 @@ const styles = StyleSheet.create({
     padding: 8,
     width: 330,
     borderWidth: 1,
-    borderColor: darkColor
+    borderColor: darkColor,
   },
   paymentMethod: {
-    marginTop: 10
+    marginTop: 10,
   },
   paymentMethodRow: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   paymentMethodRowLeft: {
-    marginRight: 10
+    marginRight: 10,
   },
   paymentMethodRowRight: {
-    display: 'flex'
+    display: 'flex',
   },
   paymentMethodRowRightTitle: {
     color: darkColor,
     fontSize: 14,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   paymentMethodRowRightDescription: {
     fontSize: 12,
     maxWidth: 250,
-    color: darkColor
+    color: darkColor,
   },
   paymentBottom: {
     marginLeft: 30,
-    paddingBottom: 70
+    paddingBottom: 70,
   },
   button: {
     alignSelf: 'center',
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: darkColor,
     width: 334,
-    marginRight: 30
+    marginRight: 30,
   },
   buttonText: {
     textAlign: 'center',

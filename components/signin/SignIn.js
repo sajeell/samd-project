@@ -1,6 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
-  SafeAreaView,
   View,
   Text,
   Image,
@@ -8,13 +7,18 @@ import {
   TextInput,
   Pressable,
   Button,
+  TouchableOpacity,
 } from 'react-native'
 import {Link} from 'react-router-native'
 
 import bgImage from '../../static/images/form-bg.png'
 const SignIn = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const signIn = () => {}
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={bgImage} style={styles.image}></Image>
       </View>
@@ -25,6 +29,9 @@ const SignIn = () => {
             placeholder="Email Address"
             keyboardType="email-address"
             style={styles.inputField}
+            onChange={e => {
+              setEmail(e)
+            }}
           />
         </View>
         <View style={styles.formRow3}>
@@ -32,21 +39,26 @@ const SignIn = () => {
             placeholder="Password"
             secureTextEntry={true}
             style={styles.inputField}
+            onChange={e => {
+              setPassword(e)
+            }}
           />
         </View>
         <View>
           <Pressable style={styles.formRow4}>
-            <Button title="Submit" color="#405e87" />
+            <Button title="SIGN IN" color="#405e87" onPress={signIn} />
           </Pressable>
         </View>
         <View style={styles.formRow5}>
-          <Link to="/signup">
-            <Text>Sign Up</Text>
-          </Link>
+          <TouchableOpacity>
+            <Link to="/signup">
+              <Text style={styles.signUpText}>Sign Up</Text>
+            </Link>
+          </TouchableOpacity>
           <Text>here</Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -84,12 +96,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 60,
     borderRadius: 10,
+    width: 250,
   },
   formRow3: {
     marginBottom: 5,
     backgroundColor: 'white',
     paddingHorizontal: 70,
     borderRadius: 10,
+    width: 250,
   },
   formRow4: {
     marginBottom: 5,
@@ -99,10 +113,14 @@ const styles = StyleSheet.create({
   },
   formRow5: {
     display: 'flex',
+    flexDirection: 'row',
     alignSelf: 'flex-start',
     marginLeft: 8,
     marginTop: 10,
     fontSize: 12,
+  },
+  signUpText: {
+    marginRight: 5,
   },
 })
 
