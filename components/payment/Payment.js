@@ -183,16 +183,17 @@ const styles = StyleSheet.create({
     color: darkColor
   },
   paymentBottom: {
-    marginLeft: 30
+    marginLeft: 30,
+    paddingBottom: 70
   },
   button: {
     alignSelf: 'center',
     backgroundColor: darkColor,
-    marginTop: 10,
+    marginTop: 20,
     paddingVertical: 10,
     borderWidth: 1,
     borderColor: darkColor,
-    width: 300,
+    width: 334,
     marginRight: 30
   },
   buttonText: {
