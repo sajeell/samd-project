@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native'
-import {RadioButton} from 'react-native-paper'
+import { RadioButton } from 'react-native-paper'
+import { Link } from "react-router-native"
 
 const Payment = () => {
   const [isCard, setIsCard] = useState(false)
@@ -99,7 +100,9 @@ const Payment = () => {
             keyboardType="number-pad"></TextInput>
         </View>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>PAY</Text>
+          <Link to="/quiz">
+            <Text style={styles.buttonText}>PAY</Text>
+          </Link>
         </TouchableOpacity>
       </ScrollView>
     </ScrollView>

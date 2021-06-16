@@ -1,5 +1,6 @@
 import React from 'react'
-import {View, Text, StyleSheet, ScrollView, Pressable} from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { Link } from "react-router-native"
 
 const CourseDetails = () => {
   return (
@@ -40,9 +41,11 @@ const CourseDetails = () => {
           </Text>
         </View>
       </ScrollView>
-      <Pressable style={styles.button}>
-        <Text style={styles.buttonText}>PAY</Text>
-      </Pressable>
+      <TouchableOpacity style={styles.button}>
+        <Link to="/payment">
+          <Text style={styles.buttonText}>PAY</Text>
+        </Link>
+      </TouchableOpacity>
     </ScrollView>
   )
 }

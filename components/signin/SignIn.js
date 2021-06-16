@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -9,14 +9,15 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native'
-import {Link} from 'react-router-native'
+import { Link } from 'react-router-native'
 
 import bgImage from '../../static/images/form-bg.png'
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const signIn = () => {}
+  const signIn = () => {
+  }
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -45,9 +46,11 @@ const SignIn = () => {
           />
         </View>
         <View>
-          <Pressable style={styles.formRow4}>
-            <Button title="SIGN IN" color="#405e87" onPress={signIn} />
-          </Pressable>
+          <Link to="/dashboard">
+            <TouchableOpacity style={styles.formRow4}>
+              <Button title="SIGN IN" color="#405e87" onPress={signIn} />
+            </TouchableOpacity>
+          </Link>
         </View>
         <View style={styles.formRow5}>
           <TouchableOpacity>

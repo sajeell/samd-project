@@ -1,5 +1,6 @@
 import React from 'react'
-import {View, Text, StyleSheet, ScrollView} from 'react-native'
+import { Link } from "react-router-native"
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 
 const Dashboard = () => {
   return (
@@ -14,11 +15,13 @@ const Dashboard = () => {
       <ScrollView style={styles.dashboardExams}>
         <Text style={styles.dashboardHeading}>Trending Exams</Text>
         <View style={styles.dashboardExamsBoxes}>
-          <View style={styles.dashboardExamsBox}>
-            <Text style={styles.boxTitle}>Data Structures & Algorithrm</Text>
-            <Text style={styles.boxAuthor}>Dr. David Gustavo</Text>
-            <Text style={styles.boxPrice}>50/- USD</Text>
-          </View>
+          <Link to="course-details">
+            <View style={styles.dashboardExamsBox}>
+              <Text style={styles.boxTitle}>Data Structures & Algorithrm</Text>
+              <Text style={styles.boxAuthor}>Dr. David Gustavo</Text>
+              <Text style={styles.boxPrice}>50/- USD</Text>
+            </View>
+          </Link>
         </View>
       </ScrollView>
     </ScrollView>

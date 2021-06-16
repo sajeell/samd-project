@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import {View, Text, StyleSheet, Pressable} from 'react-native'
-
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { Link } from "react-router-native"
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false)
 
@@ -12,7 +12,9 @@ const Header = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>EVALY</Text>
+          <Link to="/dashboard">
+            <Text style={styles.title}>EVALY</Text>
+          </Link>
           <View style={styles.headerDotsContainer}>
             <Pressable onPress={handeIsMobile}>
               <Text style={styles.headerDots}>᎒</Text>
@@ -25,7 +27,9 @@ const Header = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>EVALY</Text>
+          <Link to="/dashboard">
+            <Text style={styles.title}>EVALY</Text>
+          </Link>
           <View style={styles.headerDotsContainer}>
             <Pressable onPress={handeIsMobile}>
               <Text style={styles.headerDots}>᎒</Text>
