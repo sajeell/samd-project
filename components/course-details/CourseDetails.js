@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -6,9 +6,46 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native'
-import {Link} from 'react-router-native'
+import { Link } from 'react-router-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useQuery } from 'urql'
 
 const CourseDetails = () => {
+  const [quizId, setQuizId] = useState(0)
+
+  try {
+    AsyncStorage.getItem('quizId').then((response) => {
+      setQuizId(response)
+      alert(response)
+    })
+  } catch (e) {
+    // error reading value
+    alert(e)
+  }
+
+  const QuizQuery = `
+  query {
+    quizDetails(id: 1) {
+      id
+      title
+      author
+      price
+      pre_req
+      benefits
+    }
+  }
+`
+
+  const [result, reexecuteQuery] = useQuery({
+    query: QuizQuery,
+  })
+
+  const { data, fetching, error } = result
+
+  if (fetching) return <Text>Loading...</Text>
+  if (error) return <Text>Oh no... {error.message}</Text>
+
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.breadCrumb}>
@@ -19,40 +56,36 @@ const CourseDetails = () => {
         <Text style={styles.breadCrumbText}>Course Details</Text>
       </View>
       <ScrollView contentContainerStyle={styles.courseDetailWrapper}>
-        <View style={styles.courseDetailRow}>
-          <Text style={styles.rowHeading}>Title</Text>
-          <Text style={styles.rowContent}>Data Structures & Algorithm</Text>
-        </View>
-        <View style={styles.courseDetailRow}>
-          <Text style={styles.rowHeading}>Cost</Text>
-          <Text style={styles.rowContent}>50/- USD</Text>
-        </View>
-        <View style={styles.courseDetailRow}>
-          <Text style={styles.rowHeading}>Author</Text>
-          <Text style={styles.rowContent}>Dr. David Gustavo</Text>
-        </View>
-        <View style={styles.courseDetailRow}>
-          <Text style={styles.rowHeading}>Prerequisites</Text>
-          <Text style={styles.rowContent}>Knowledge of OOP, Coding</Text>
-        </View>
-        <View style={styles.courseDetailRow}>
-          <Text style={styles.rowHeading}>Benefits</Text>
-          <Text style={styles.rowContent}>
-            You may be new to Data Structure or you have already Studied and
-            Implemented Data Structures but still you feel you need to learn
-            more about Data Structure in detail so that it helps you solve
-            challenging problems and used Data Structure efficiently. This 53
-            hours of course covers each topic in greater details, every topic is
-            covered on Whiteboard which will improve your Problem Solving and
-            Analytical Skills. Every Data Structure is discussed, analysed and
-            implemented with a Practical line-by-line coding.
-          </Text>
-        </View>
+        {data.quizDetails.map((quiz) => (
+          <ScrollView key={quiz.id}>
+            <View style={styles.courseDetailRow}>
+              <Text style={styles.rowHeading}>Title</Text>
+              <Text style={styles.rowContent}>{quiz.title}</Text>
+            </View>
+            <View style={styles.courseDetailRow}>
+              <Text style={styles.rowHeading}>Cost</Text>
+              <Text style={styles.rowContent}>{quiz.price}/- USD</Text>
+            </View>
+            <View style={styles.courseDetailRow}>
+              <Text style={styles.rowHeading}>Author</Text>
+              <Text style={styles.rowContent}>{quiz.author}</Text>
+            </View>
+            <View style={styles.courseDetailRow}>
+              <Text style={styles.rowHeading}>Prerequisites</Text>
+              <Text style={styles.rowContent}>{quiz.pre_req}</Text>
+            </View>
+            <View style={styles.courseDetailRow}>
+              <Text style={styles.rowHeading}>Benefits</Text>
+              <Text style={styles.rowContent}>
+                {quiz.benefits}
+              </Text>
+            </View>
+          </ScrollView>
+        ))}
+        <Link component={TouchableOpacity} to="/payment">
+          <Text style={styles.formRow4}>PAY</Text>
+        </Link>
       </ScrollView>
-
-      <Link component={TouchableOpacity} to="/payment">
-        <Text style={styles.formRow4}>PAY</Text>
-      </Link>
     </ScrollView>
   )
 }

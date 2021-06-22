@@ -1,86 +1,263 @@
-import React, {useState} from 'react'
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
-import {RadioButton} from 'react-native-paper'
-import {Link} from 'react-router-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { RadioButton } from 'react-native-paper'
+import { Link } from 'react-router-native'
+import { useQuery, useMutation } from 'urql'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import auth from '@react-native-firebase/auth'
 
 const Quiz = () => {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  if (initializing) return null;
+
   const [isChoiceOne, setIsChoiceOne] = useState(false)
   const [isChoiceTwo, setIsChoiceTwo] = useState(false)
   const [isChoiceThree, setIsChoiceThree] = useState(false)
   const [isChoiceFour, setIsChoiceFour] = useState(false)
+  const [questionId, setQuestionId] = useState(1)
+  const [quizTotalMarks, setQuizTotalMarks] = useState(0)
+  const [quizTotalQuestions, setQuizTotalQuestions] = useState(0)
+  const [choiceIsTrue, setChoiceIsTrue] = useState(false)
+  const [marksObtained, setMarksObtained] = useState(0)
+  const [quizId, setQuizId] = useState(0)
 
-  return (
-    <View style={styles.container}>
-      <Link component={TouchableOpacity} to="/dashboard">
-        <Text style={styles.quizIntro}>EVALY</Text>
-      </Link>
-      <Text style={styles.heading}>Normal Quiz</Text>
-      <View style={styles.quizContent}>
-        <View style={styles.quizRow}>
-          <Text style={styles.questionNumberText}>Question 1/4</Text>
-        </View>
-        <View style={styles.quizRow}>
-          <Text style={styles.questionText}>
-            Which of the following is true?
-          </Text>
-        </View>
-        <View style={styles.quizRadioRow}>
-          <View style={styles.rowLeft}>
-            <RadioButton
-              value={true}
-              status={isChoiceOne === true ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setIsChoiceOne(!isChoiceOne)
-              }}
-            />
-          </View>
-          <Text style={styles.rowRight}>Stack is not a heap</Text>
-        </View>
-        <View style={styles.quizRadioRow}>
-          <View style={styles.rowLeft}>
-            <RadioButton
-              value={true}
-              status={isChoiceTwo === true ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setIsChoiceTwo(!isChoiceTwo)
-              }}
-            />
-          </View>
-          <Text style={styles.rowRight}>Stack is a heap</Text>
-        </View>
-        <View style={styles.quizRadioRow}>
-          <View style={styles.rowLeft}>
-            <RadioButton
-              value={true}
-              status={isChoiceThree === true ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setIsChoiceThree(!isChoiceThree)
-              }}
-            />
-          </View>
-          <Text style={styles.rowRight}>Stack is a linked list</Text>
-        </View>
-        <View style={styles.quizRadioRow}>
-          <View style={styles.rowLeft}>
-            <RadioButton
-              value={true}
-              status={isChoiceFour === true ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setIsChoiceFour(!isChoiceFour)
-              }}
-            />
-          </View>
-          <Text style={styles.rowRight}>Stack is not a stack</Text>
-        </View>
+  AsyncStorage.getItem("quizTotalMarks").then((response) => {
+    setQuizTotalMarks(response)
+  })
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>SUBMIT</Text>
-        </TouchableOpacity>
+  AsyncStorage.getItem('quizId').then((response) => {
+    setQuizId(response)
+  })
+
+  AsyncStorage.getItem("quizTotalQuestions").then((response) => {
+    setQuizTotalQuestions(response)
+  })
+
+
+  const QuestionQuery = `
+      query {
+        question(id: ${questionId}, 
+        quiz_id: ${quizId}) 
+        {
+          id
+          title
+          choice_1 {
+            id
+            title
+            correct
+          }
+          choice_2 {
+            id
+            title
+            correct
+          }
+          choice_3 {
+            id
+            title
+            correct
+          }
+          choice_4 {
+            id
+            title
+            correct
+          }
+        }
+      }
+  `
+
+  const uploadResult = `
+      mutation ($userId: Int!, $quizTitle: String!, $author: String!, $marksObtained: Int!, $totalMarks: Int!) {
+        uploadResult (data: {userId: $userId, quizTitle: $quizTitle, author: $author, marksObtained: $marksObtained, totalMarks: $totalMarks}) {
+          userId
+          quizTitle
+          author
+          marksObtained
+          totalMarks
+        }
+      }
+  `
+
+  const [uploadResultResponse, uploadResultMutation] = useMutation(uploadResult)
+
+  const [result, reexecuteQuery] = useQuery({
+    query: QuestionQuery,
+  })
+
+  const { data, fetching, error } = result
+
+  if (fetching) return <Text>Loading...</Text>
+  if (error) return <Text>Oh no... {error.message}</Text>
+
+
+  const MCQs = () => {
+    return (
+
+      <View style={styles.container}>
+        <Link component={TouchableOpacity} to="/dashboard">
+          <Text style={styles.quizIntro}>EVALY</Text>
+        </Link>
+        <Text style={styles.heading}>Normal Quiz</Text>
+        <View style={styles.quizContent}>
+          <View style={styles.quizRow}>
+            <Text style={styles.questionNumberText}>Question {questionId}/{quizTotalQuestions}</Text>
+          </View>
+          <View style={styles.quizRow}>
+            <Text style={styles.questionText}>
+              {data.question.title}
+            </Text>
+          </View>
+          <View style={styles.quizRadioRow}>
+            <View style={styles.rowLeft}>
+              <RadioButton
+                value={true}
+                status={isChoiceOne === true ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setIsChoiceOne(!isChoiceOne)
+                  if (data.question.choice_1.correct) {
+                    setChoiceIsTrue(true)
+                  } else {
+                    setChoiceIsTrue(false)
+                  }
+                }}
+              />
+            </View>
+            <Text style={styles.rowRight}>{data.question.choice_1.title}</Text>
+          </View>
+          <View style={styles.quizRadioRow}>
+            <View style={styles.rowLeft}>
+              <RadioButton
+                value={true}
+                status={isChoiceTwo === true ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setIsChoiceTwo(!isChoiceTwo)
+                  if (data.question.choice_2.correct) {
+                    setChoiceIsTrue(true)
+                  } else {
+                    setChoiceIsTrue(false)
+                  }
+                }}
+              />
+            </View>
+            <Text style={styles.rowRight}>{data.question.choice_2.title}</Text>
+          </View>
+          <View style={styles.quizRadioRow}>
+            <View style={styles.rowLeft}>
+              <RadioButton
+                value={true}
+                status={isChoiceThree === true ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setIsChoiceThree(!isChoiceThree)
+                  if (data.question.choice_3.correct) {
+                    setChoiceIsTrue(true)
+                  } else {
+                    setChoiceIsTrue(false)
+                  }
+                }}
+              />
+            </View>
+            <Text style={styles.rowRight}>{data.question.choice_3.title}</Text>
+          </View>
+          <View style={styles.quizRadioRow}>
+            <View style={styles.rowLeft}>
+              <RadioButton
+                value={true}
+                status={isChoiceFour === true ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setIsChoiceFour(!isChoiceFour)
+                  if (data.question.choice_4.correct) {
+                    setChoiceIsTrue(true)
+                  } else {
+                    setChoiceIsTrue(false)
+                  }
+                }}
+              />
+            </View>
+            <Text style={styles.rowRight}>{data.question.choice_4.title}</Text>
+          </View>
+        </View>
       </View>
-    </View>
-  )
-}
+    )
+  }
 
+  if (questionId != quizTotalQuestions) {
+    return (
+      <ScrollView>
+        <MCQs />
+        <TouchableOpacity style={styles.button} onPress={async (e) => {
+          e.persist()
+          if (choiceIsTrue) {
+            await AsyncStorage.setItem('marksObtained', JSON.stringify(marksObtained + 1))
+          } else {
+            await AsyncStorage.setItem('marksObtained', JSON.stringify(marksObtained))
+          }
+          setQuestionId(questionId + 1)
+        }}>
+          <Text style={styles.buttonText}>NEXT QUESTION</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    )
+  }
+  else if (questionId == quizTotalQuestions) {
+    {
+      return (
+        <ScrollView>
+          <MCQs />
+          <TouchableOpacity style={styles.button} onPress={async (e) => {
+            {
+              if (choiceIsTrue) {
+                await AsyncStorage.setItem(
+                  'marksObtained',
+                  JSON.stringify(await AsyncStorage.getItem("marksObtained")) + 1,
+                )
+              } else {
+                await AsyncStorage.setItem(
+                  'marksObtained',
+                  JSON.stringify(await AsyncStorage.getItem("marksObtained")),
+                )
+              }
+              const variables = {
+                userId: user.id,
+                quizTitle: await AsyncStorage.getItem("quizTitle"),
+                author: await AsyncStorage.getItem("quizAuthor"),
+                marksObtained: parseInt(
+                  await AsyncStorage.getItem("marksObtained"),
+                ),
+                totalMarks: parseInt(quizTotalMarks),
+              }
+              uploadResultMutation(variables).then(async (result) => {
+                alert('Submitted Successfully')
+                AsyncStorage.removeItem('marksObtained')
+                AsyncStorage.removeItem('quizTitle')
+                AsyncStorage.removeItem('quizId')
+                AsyncStorage.removeItem('quizAuthor')
+                AsyncStorage.removeItem('quizTotalMarks')
+                AsyncStorage.removeItem('quizTotalQuestions')
+                auth()
+                  .signOut()
+                  .then(() => alert('Signed out!'))
+              })
+            }
+          }}>
+            <Text style={styles.buttonText}>SUBMIT</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      )
+    }
+  }
+}
 const lightColor = '#f2f6ff'
 const darkColor = '#405e87'
 

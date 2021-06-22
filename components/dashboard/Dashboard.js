@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-native'
+import { Link } from 'react-router-native'
 import {
   View,
   Text,
@@ -7,8 +7,33 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native'
+import { useQuery } from 'urql'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const QuizQuery = `
+  query {
+    quiz {
+      id
+      title
+      author
+      price
+      total_questions
+      total_marks
+    }
+  }
+`
 
 const Dashboard = () => {
+
+  const [result, reexecuteQuery] = useQuery({
+    query: QuizQuery,
+  })
+
+  const { data, fetching, error } = result
+
+  if (fetching) return <Text>Loading...</Text>
+  if (error) return <Text>Oh no... {JSON.stringify(error)}</Text>
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.breadCrumb}>
@@ -21,13 +46,28 @@ const Dashboard = () => {
       <ScrollView style={styles.dashboardExams}>
         <Text style={styles.dashboardHeading}>Trending Exams</Text>
         <View style={styles.dashboardExamsBoxes}>
-          <Link component={TouchableOpacity} to="course-details">
-            <View style={styles.dashboardExamsBox}>
-              <Text style={styles.boxTitle}>Data Structures & Algorithrm</Text>
-              <Text style={styles.boxAuthor}>Dr. David Gustavo</Text>
-              <Text style={styles.boxPrice}>50/- USD</Text>
-            </View>
-          </Link>
+          {data.quiz.map((quiz) => (
+            <TouchableOpacity key={quiz.id} onPress={async (e) => {
+              e.preventDefault()
+              await AsyncStorage.setItem('quizId', quiz.id)
+              await AsyncStorage.setItem('quizTotalMarks', JSON.stringify(quiz.total_marks))
+              await AsyncStorage.setItem(
+                'quizTotalQuestions',
+                JSON.stringify(quiz.total_questions),
+              )
+              await AsyncStorage.setItem('quizTitle', quiz.title)
+              await AsyncStorage.setItem('quizAuthor', quiz.author)
+            }}>
+              <Link component={TouchableOpacity} to='course-details' >
+                <View style={styles.dashboardExamsBox} >
+                  <Text style={styles.boxTitle}>{quiz.title}</Text>
+                  <Text style={styles.boxAuthor}>By {quiz.author}</Text>
+                  <Text style={styles.boxPrice}>{quiz.price}/- USD</Text>
+                </View>
+              </Link>
+            </TouchableOpacity>
+          ))}
+
         </View>
       </ScrollView>
     </ScrollView>

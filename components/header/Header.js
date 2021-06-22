@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
-import {View, Text, StyleSheet, Pressable, TouchableOpacity} from 'react-native'
-import {Link} from 'react-router-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
+import { Link } from 'react-router-native'
+import auth from '@react-native-firebase/auth'
+
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false)
 
@@ -39,7 +41,14 @@ const Header = () => {
         <View style={styles.headerMenu}>
           <Text style={styles.headerMenuItem}>RESULT</Text>
           <Text style={styles.headerMenuItem}>HELP</Text>
-          <Text style={styles.headerMenuItem}>LOG OUT</Text>
+          <TouchableOpacity onPress={(e) => {
+            e.preventDefault()
+            auth()
+              .signOut()
+              .then(() => alert('Signed out!'));
+          }}>
+            <Text style={styles.headerMenuItem} >LOG OUT</Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
