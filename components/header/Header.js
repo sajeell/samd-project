@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
 import { Link } from "react-router-native"
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false)
@@ -12,7 +12,7 @@ const Header = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Link to="/dashboard">
+          <Link component={TouchableOpacity} to="/dashboard">
             <Text style={styles.title}>EVALY</Text>
           </Link>
           <View style={styles.headerDotsContainer}>
@@ -27,7 +27,7 @@ const Header = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Link to="/dashboard">
+          <Link component={TouchableOpacity} to="/dashboard">
             <Text style={styles.title}>EVALY</Text>
           </Link>
           <View style={styles.headerDotsContainer}>

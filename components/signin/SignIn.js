@@ -5,8 +5,6 @@ import {
   Image,
   StyleSheet,
   TextInput,
-  Pressable,
-  Button,
   TouchableOpacity,
 } from 'react-native'
 import { Link } from 'react-router-native'
@@ -46,24 +44,25 @@ const SignIn = () => {
           />
         </View>
         <View>
-          <Link to="/dashboard">
-            <TouchableOpacity style={styles.formRow4}>
-              <Button title="SIGN IN" color="#405e87" onPress={signIn} />
-            </TouchableOpacity>
+          <Link component={TouchableOpacity} to="/dashboard" >
+            {/* <Button title="SIGN IN" color="#405e87" onPress={signIn} /> */}
+            <Text style={styles.formRow4}>Sign In</Text>
           </Link>
         </View>
         <View style={styles.formRow5}>
-          <TouchableOpacity>
-            <Link to="/signup">
-              <Text style={styles.signUpText}>Sign Up</Text>
-            </Link>
-          </TouchableOpacity>
+          <Link component={TouchableOpacity} to="/signup">
+            <Text style={styles.signUpText}>Sign Up</Text>
+          </Link>
           <Text>here</Text>
         </View>
       </View>
     </View>
   )
 }
+
+const lightColor = "#f2f6ff";
+const darkColor = "#405e87";
+
 
 const styles = StyleSheet.create({
   container: {
@@ -109,10 +108,13 @@ const styles = StyleSheet.create({
     width: 250,
   },
   formRow4: {
+    textAlign: 'center',
     marginBottom: 5,
     marginTop: 16,
     width: 150,
-    borderRadius: 10,
+    backgroundColor: darkColor,
+    color: 'white',
+    paddingVertical: 10
   },
   formRow5: {
     display: 'flex',

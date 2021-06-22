@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-native"
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 
 const Dashboard = () => {
   return (
@@ -15,7 +15,7 @@ const Dashboard = () => {
       <ScrollView style={styles.dashboardExams}>
         <Text style={styles.dashboardHeading}>Trending Exams</Text>
         <View style={styles.dashboardExamsBoxes}>
-          <Link to="course-details">
+          <Link component={TouchableOpacity} to="course-details">
             <View style={styles.dashboardExamsBox}>
               <Text style={styles.boxTitle}>Data Structures & Algorithrm</Text>
               <Text style={styles.boxAuthor}>Dr. David Gustavo</Text>

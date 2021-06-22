@@ -8,8 +8,9 @@ import {
   TextInput,
   Pressable,
   Button,
+  TouchableOpacity,
 } from 'react-native'
-import {Link} from 'react-router-native'
+import { Link } from 'react-router-native'
 
 import bgImage from '../../static/images/form-bg.png'
 const SignUp = () => {
@@ -36,12 +37,12 @@ const SignUp = () => {
         </View>
         <View>
           <Pressable style={styles.formRow4}>
-            <Button title="Submit" color="#405e87" />
+            <Button title="Sign Up" color="#405e87" />
           </Pressable>
         </View>
         <View style={styles.formRow5}>
-          <Link to="/">
-            <Text>Sign In</Text>
+          <Link component={TouchableOpacity} to="/">
+            <Text style={styles.signInText}>Sign In</Text>
           </Link>
           <Text>here</Text>
         </View>
@@ -84,12 +85,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 60,
     borderRadius: 10,
+    width: 250,
   },
   formRow3: {
     marginBottom: 5,
     backgroundColor: 'white',
     paddingHorizontal: 70,
     borderRadius: 10,
+    width: 250,
   },
   formRow4: {
     marginBottom: 5,
@@ -99,10 +102,13 @@ const styles = StyleSheet.create({
   },
   formRow5: {
     display: 'flex',
+    flexDirection: 'row',
     alignSelf: 'flex-start',
-    marginLeft: 8,
     marginTop: 10,
     fontSize: 12,
+  },
+  signInText: {
+    marginRight: 5,
   },
 })
 
