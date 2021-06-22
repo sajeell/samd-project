@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import {RadioButton} from 'react-native-paper'
+import {Link} from 'react-router-native'
 
 const Quiz = () => {
   const [isChoiceOne, setIsChoiceOne] = useState(false)
@@ -10,7 +11,9 @@ const Quiz = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.quizIntro}>EVALY</Text>
+      <Link component={TouchableOpacity} to="/dashboard">
+        <Text style={styles.quizIntro}>EVALY</Text>
+      </Link>
       <Text style={styles.heading}>Normal Quiz</Text>
       <View style={styles.quizContent}>
         <View style={styles.quizRow}>
@@ -69,11 +72,10 @@ const Quiz = () => {
           </View>
           <Text style={styles.rowRight}>Stack is not a stack</Text>
         </View>
-        <View style={styles.quizRadioRow}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>SUBMIT</Text>
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>SUBMIT</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     alignSelf: 'center',
+    marginLeft: 20,
   },
   quizRadioRow: {
     display: 'flex',
@@ -136,12 +139,12 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: 'center',
     backgroundColor: darkColor,
-    marginTop: 20,
+    marginTop: 30,
     paddingVertical: 10,
     borderWidth: 1,
     borderColor: darkColor,
     width: 334,
-    marginLeft: -43,
+    marginLeft: -10,
   },
   buttonText: {
     textAlign: 'center',

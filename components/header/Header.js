@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
-import { Link } from "react-router-native"
+import React, {useState} from 'react'
+import {View, Text, StyleSheet, Pressable, TouchableOpacity} from 'react-native'
+import {Link} from 'react-router-native'
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false)
 

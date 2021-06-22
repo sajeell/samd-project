@@ -10,7 +10,7 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native'
-import { Link } from 'react-router-native'
+import {Link} from 'react-router-native'
 
 import bgImage from '../../static/images/form-bg.png'
 const SignUp = () => {

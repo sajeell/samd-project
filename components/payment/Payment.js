@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {
   View,
   Text,
@@ -7,8 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native'
-import { RadioButton } from 'react-native-paper'
-import { Link } from "react-router-native"
+import {RadioButton} from 'react-native-paper'
+import {Link} from 'react-router-native'
 
 const Payment = () => {
   const [isCard, setIsCard] = useState(false)
@@ -18,9 +18,13 @@ const Payment = () => {
       <ScrollView style={styles.paymentTop}>
         <View style={styles.paymentIntro}>
           <View style={styles.breadCrumb}>
-            <Text style={styles.breadCrumbText}>Dashboard</Text>
+            <Link component={TouchableOpacity} to="dashboard">
+              <Text style={styles.breadCrumbText}>Dashboard</Text>
+            </Link>
             <Text style={styles.breadCrumbText}>→</Text>
-            <Text style={styles.breadCrumbText}>Course Details</Text>
+            <Link component={TouchableOpacity} to="course-details">
+              <Text style={styles.breadCrumbText}>Course Details</Text>
+            </Link>
             <Text style={styles.breadCrumbText}>→</Text>
             <Text style={styles.breadCrumbText}>Payment</Text>
           </View>
@@ -99,11 +103,9 @@ const Payment = () => {
             placeholder="e.g. MM/YY"
             keyboardType="number-pad"></TextInput>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Link to="/quiz">
-            <Text style={styles.buttonText}>PAY</Text>
-          </Link>
-        </TouchableOpacity>
+        <Link component={TouchableOpacity} to="/quiz">
+          <Text style={styles.formRow4}>PAY</Text>
+        </Link>
       </ScrollView>
     </ScrollView>
   )
@@ -204,6 +206,15 @@ const styles = StyleSheet.create({
     borderColor: darkColor,
     width: 334,
     marginRight: 30,
+  },
+  formRow4: {
+    textAlign: 'center',
+    marginBottom: 5,
+    marginTop: 26,
+    width: 330,
+    backgroundColor: darkColor,
+    color: 'white',
+    paddingVertical: 10,
   },
   buttonText: {
     textAlign: 'center',

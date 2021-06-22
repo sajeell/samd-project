@@ -1,6 +1,12 @@
 import React from 'react'
-import { Link } from "react-router-native"
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import {Link} from 'react-router-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native'
 
 const Dashboard = () => {
   return (

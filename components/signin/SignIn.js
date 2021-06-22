@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {
   View,
   Text,
@@ -7,15 +7,14 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native'
-import { Link } from 'react-router-native'
+import {Link} from 'react-router-native'
 
 import bgImage from '../../static/images/form-bg.png'
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const signIn = () => {
-  }
+  const signIn = () => {}
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -44,7 +43,7 @@ const SignIn = () => {
           />
         </View>
         <View>
-          <Link component={TouchableOpacity} to="/dashboard" >
+          <Link component={TouchableOpacity} to="/dashboard">
             {/* <Button title="SIGN IN" color="#405e87" onPress={signIn} /> */}
             <Text style={styles.formRow4}>Sign In</Text>
           </Link>
@@ -60,9 +59,8 @@ const SignIn = () => {
   )
 }
 
-const lightColor = "#f2f6ff";
-const darkColor = "#405e87";
-
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const styles = StyleSheet.create({
   container: {
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
     width: 150,
     backgroundColor: darkColor,
     color: 'white',
-    paddingVertical: 10
+    paddingVertical: 10,
   },
   formRow5: {
     display: 'flex',

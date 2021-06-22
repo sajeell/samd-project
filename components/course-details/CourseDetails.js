@@ -1,12 +1,20 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import { Link } from "react-router-native"
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native'
+import {Link} from 'react-router-native'
 
 const CourseDetails = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.breadCrumb}>
-        <Text style={styles.breadCrumbText}>Dashboard</Text>
+        <Link component={TouchableOpacity} to="dashboard">
+          <Text style={styles.breadCrumbText}>Dashboard</Text>
+        </Link>
         <Text style={styles.breadCrumbText}>→</Text>
         <Text style={styles.breadCrumbText}>Course Details</Text>
       </View>
@@ -41,11 +49,10 @@ const CourseDetails = () => {
           </Text>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.button}>
-        <Link to="/payment">
-          <Text style={styles.buttonText}>PAY</Text>
-        </Link>
-      </TouchableOpacity>
+
+      <Link component={TouchableOpacity} to="/payment">
+        <Text style={styles.formRow4}>PAY</Text>
+      </Link>
     </ScrollView>
   )
 }
@@ -96,6 +103,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: darkColor,
     width: 350,
+  },
+  formRow4: {
+    textAlign: 'center',
+    marginBottom: 5,
+    marginTop: 16,
+    width: 320,
+    alignSelf: 'center',
+    backgroundColor: darkColor,
+    color: 'white',
+    paddingVertical: 10,
   },
   buttonText: {
     textAlign: 'center',
