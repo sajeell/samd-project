@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   SafeAreaView,
   View,
@@ -6,14 +6,37 @@ import {
   Image,
   StyleSheet,
   TextInput,
-  Pressable,
   Button,
   TouchableOpacity,
 } from 'react-native'
-import {Link} from 'react-router-native'
+import { Link } from 'react-router-native'
+
+import auth from '@react-native-firebase/auth'
 
 import bgImage from '../../static/images/form-bg.png'
 const SignUp = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const signUp = (e) => {
+    alert(1)
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        alert('User account created & signed in!')
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          aler('That email address is already in use!')
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          alert('That email address is invalid!');
+        }
+
+        alert(error);
+      });
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
@@ -26,19 +49,26 @@ const SignUp = () => {
             placeholder="Email Address"
             keyboardType="email-address"
             style={styles.inputField}
+            onChange={e => {
+              setEmail(e.nativeEvent.text)
+            }}
           />
         </View>
         <View style={styles.formRow3}>
           <TextInput
             placeholder="Password"
+            passwordRules="required: upper; required: lower; required: digit; max-consecutive: 2; minlength: 8;"
             secureTextEntry={true}
             style={styles.inputField}
+            onChange={e => {
+              setPassword(e.nativeEvent.text)
+            }}
           />
         </View>
         <View>
-          <Pressable style={styles.formRow4}>
-            <Button title="Sign Up" color="#405e87" />
-          </Pressable>
+          <TouchableOpacity onPress={signUp}>
+            <Text style={styles.button}>SIGN UP</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.formRow5}>
           <Link component={TouchableOpacity} to="/">
@@ -50,6 +80,9 @@ const SignUp = () => {
     </SafeAreaView>
   )
 }
+
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const styles = StyleSheet.create({
   container: {
@@ -99,6 +132,15 @@ const styles = StyleSheet.create({
     marginTop: 16,
     width: 150,
     borderRadius: 10,
+  },
+  button: {
+    textAlign: 'center',
+    marginBottom: 5,
+    marginTop: 16,
+    width: 150,
+    backgroundColor: darkColor,
+    color: 'white',
+    paddingVertical: 10,
   },
   formRow5: {
     display: 'flex',

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -6,15 +6,34 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ToastAndroid
 } from 'react-native'
-import {Link} from 'react-router-native'
+import { Link } from 'react-router-native'
+import auth from '@react-native-firebase/auth'
+// These imports load individual services into the firebase namespace.
 
 import bgImage from '../../static/images/form-bg.png'
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const signIn = () => {}
+  const signIn = (e) => {
+    e.preventDefault()
+    try {
+      auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          // ToastAndroid.show("Signed In!", ToastAndroid.SHORT);
+          alert("Signed In")
+        })
+        .catch(error => {
+          // ToastAndroid.show(JSON.stringify(error.message), ToastAndroid.SHORT);
+          alert(JSON.stringify(error.message))
+        });
+    } catch (error) {
+      alert(error)
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -28,7 +47,7 @@ const SignIn = () => {
             keyboardType="email-address"
             style={styles.inputField}
             onChange={e => {
-              setEmail(e)
+              setEmail(e.nativeEvent.text)
             }}
           />
         </View>
@@ -38,19 +57,18 @@ const SignIn = () => {
             secureTextEntry={true}
             style={styles.inputField}
             onChange={e => {
-              setPassword(e)
+              setPassword(e.nativeEvent.text)
             }}
           />
         </View>
         <View>
-          <Link component={TouchableOpacity} to="/dashboard">
-            {/* <Button title="SIGN IN" color="#405e87" onPress={signIn} /> */}
-            <Text style={styles.formRow4}>Sign In</Text>
-          </Link>
+          <TouchableOpacity onPress={signIn}>
+            <Text style={styles.formRow4}>SIGN IN</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.formRow5}>
           <Link component={TouchableOpacity} to="/signup">
-            <Text style={styles.signUpText}>Sign Up</Text>
+            <Text style={styles.signUpText} >Sign Up</Text>
           </Link>
           <Text>here</Text>
         </View>
