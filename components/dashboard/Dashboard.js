@@ -1,14 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-native'
+import React from "react"
+import { Link } from "react-router-native"
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
-} from 'react-native'
-import { useQuery } from 'urql'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+  TouchableOpacity
+} from "react-native"
+import { useQuery } from "urql"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const QuizQuery = `
   query {
@@ -24,9 +24,8 @@ const QuizQuery = `
 `
 
 const Dashboard = () => {
-
   const [result, reexecuteQuery] = useQuery({
-    query: QuizQuery,
+    query: QuizQuery
   })
 
   const { data, fetching, error } = result
@@ -47,108 +46,113 @@ const Dashboard = () => {
         <Text style={styles.dashboardHeading}>Trending Exams</Text>
         <View style={styles.dashboardExamsBoxes}>
           {data.quiz.map((quiz) => (
-            <TouchableOpacity key={quiz.id} onPress={async (e) => {
-              e.preventDefault()
-              await AsyncStorage.setItem('quizId', quiz.id)
-              await AsyncStorage.setItem('quizTotalMarks', JSON.stringify(quiz.total_marks))
-              await AsyncStorage.setItem(
-                'quizTotalQuestions',
-                JSON.stringify(quiz.total_questions),
-              )
-              await AsyncStorage.setItem('quizTitle', quiz.title)
-              await AsyncStorage.setItem('quizAuthor', quiz.author)
-            }}>
-              <Link component={TouchableOpacity} to='course-details' >
-                <View style={styles.dashboardExamsBox} >
+            <ScrollView
+              key={quiz.id}
+              onTouchStart={async (e) => {
+                e.preventDefault()
+                await AsyncStorage.setItem("quizId", JSON.stringify(quiz.id))
+                await AsyncStorage.setItem(
+                  "quizTotalMarks",
+                  JSON.stringify(quiz.total_marks)
+                )
+                await AsyncStorage.setItem(
+                  "quizTotalQuestions",
+                  JSON.stringify(quiz.total_questions)
+                )
+                await AsyncStorage.setItem("quizTitle", quiz.title)
+                await AsyncStorage.setItem("quizAuthor", quiz.author)
+              }}
+            >
+              <Link component={TouchableOpacity} to='course-details'>
+                <View style={styles.dashboardExamsBox}>
                   <Text style={styles.boxTitle}>{quiz.title}</Text>
                   <Text style={styles.boxAuthor}>By {quiz.author}</Text>
                   <Text style={styles.boxPrice}>{quiz.price}/- USD</Text>
                 </View>
               </Link>
-            </TouchableOpacity>
+            </ScrollView>
           ))}
-
         </View>
       </ScrollView>
     </ScrollView>
   )
 }
 
-const lightColor = '#f2f6ff'
-const darkColor = '#405e87'
+const lightColor = "#f2f6ff"
+const darkColor = "#405e87"
 
 const breadCrumb = {
   marginTop: 20,
-  alignSelf: 'flex-start',
+  alignSelf: "flex-start"
 }
 
 const breadCrumbText = {
   fontSize: 13,
   color: darkColor,
-  letterSpacing: 4,
+  letterSpacing: 4
 }
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    color: '#405e87',
-    marginLeft: 30,
+    display: "flex",
+    flexDirection: "column",
+    color: "#405e87",
+    marginLeft: 30
   },
   breadCrumb: breadCrumb,
   breadCrumbText: breadCrumbText,
   welcome: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: 20,
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 20
   },
   welcomeName: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: 10,
-    color: darkColor,
+    color: darkColor
   },
   dashboardHeading: {
     marginTop: 20,
     fontSize: 20,
-    fontWeight: 'bold',
-    color: darkColor,
+    fontWeight: "bold",
+    color: darkColor
   },
   dashboardExamsBoxes: {
-    display: 'flex',
+    display: "flex"
   },
   dashboardExamsBox: {
     marginTop: 25,
     marginBottom: 25,
     marginLeft: 3,
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     width: 250,
     backgroundColor: lightColor,
     padding: 25,
     borderRadius: 25,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 5
   },
   boxTitle: {
     marginBottom: 10,
-    fontWeight: 'bold',
-    color: darkColor,
+    fontWeight: "bold",
+    color: darkColor
   },
   boxAuthor: {
-    color: darkColor,
+    color: darkColor
   },
   boxPrice: {
     marginTop: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: darkColor,
-    alignSelf: 'flex-end',
-  },
+    alignSelf: "flex-end"
+  }
 })
 
 export default Dashboard

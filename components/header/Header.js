@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
-import { Link } from 'react-router-native'
-import auth from '@react-native-firebase/auth'
+import React, { useState } from "react"
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity
+} from "react-native"
+import { Link } from "react-router-native"
+import auth from "@react-native-firebase/auth"
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false)
 
-  const handeIsMobile = e => {
+  const handeIsMobile = (e) => {
     e.preventDefault()
     setIsMobile(!isMobile)
   }
@@ -14,7 +20,7 @@ const Header = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Link component={TouchableOpacity} to="/dashboard">
+          <Link component={TouchableOpacity} to='/dashboard'>
             <Text style={styles.title}>EVALY</Text>
           </Link>
           <View style={styles.headerDotsContainer}>
@@ -29,7 +35,7 @@ const Header = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Link component={TouchableOpacity} to="/dashboard">
+          <Link component={TouchableOpacity} to='/dashboard'>
             <Text style={styles.title}>EVALY</Text>
           </Link>
           <View style={styles.headerDotsContainer}>
@@ -41,13 +47,15 @@ const Header = () => {
         <View style={styles.headerMenu}>
           <Text style={styles.headerMenuItem}>RESULT</Text>
           <Text style={styles.headerMenuItem}>HELP</Text>
-          <TouchableOpacity onPress={(e) => {
-            e.preventDefault()
-            auth()
-              .signOut()
-              .then(() => alert('Signed out!'));
-          }}>
-            <Text style={styles.headerMenuItem} >LOG OUT</Text>
+          <TouchableOpacity
+            onPress={(e) => {
+              e.preventDefault()
+              auth()
+                .signOut()
+                .then(() => alert("Signed out!"))
+            }}
+          >
+            <Text style={styles.headerMenuItem}>LOG OUT</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -55,43 +63,43 @@ const Header = () => {
   }
 }
 
-const lightColor = '#f2f6ff'
-const darkColor = '#405e87'
+const lightColor = "#f2f6ff"
+const darkColor = "#405e87"
 
 const styles = StyleSheet.create({
   header: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    overflow: 'hidden',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    overflow: "hidden",
     height: 50,
-    width: '100%',
-    backgroundColor: lightColor,
+    width: "100%",
+    backgroundColor: lightColor
   },
   title: {
     marginLeft: 30,
     letterSpacing: 5,
-    fontWeight: 'bold',
-    color: darkColor,
+    fontWeight: "bold",
+    color: darkColor
   },
   headerDots: {
     color: darkColor,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 30,
-    fontSize: 20,
+    fontSize: 20
   },
   headerMenu: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     paddingVertical: 20,
     paddingHorizontal: 25,
-    backgroundColor: lightColor,
+    backgroundColor: lightColor
   },
   headerMenuItem: {
     letterSpacing: 2,
     marginVertical: 5,
-    color: darkColor,
-  },
+    color: darkColor
+  }
 })
 
 export default Header
