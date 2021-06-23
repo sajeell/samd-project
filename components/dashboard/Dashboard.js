@@ -1,14 +1,14 @@
-import React from "react"
-import { Link } from "react-router-native"
+import React from 'react'
+import { Link } from 'react-router-native'
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity
-} from "react-native"
-import { useQuery } from "urql"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+} from 'react-native'
+import { useQuery } from 'urql'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const QuizQuery = `
   query {
@@ -50,17 +50,17 @@ const Dashboard = () => {
               key={quiz.id}
               onTouchStart={async (e) => {
                 e.preventDefault()
-                await AsyncStorage.setItem("quizId", JSON.stringify(quiz.id))
+                await AsyncStorage.setItem('quizId', JSON.stringify(quiz.id))
                 await AsyncStorage.setItem(
-                  "quizTotalMarks",
+                  'quizTotalMarks',
                   JSON.stringify(quiz.total_marks)
                 )
                 await AsyncStorage.setItem(
-                  "quizTotalQuestions",
+                  'quizTotalQuestions',
                   JSON.stringify(quiz.total_questions)
                 )
-                await AsyncStorage.setItem("quizTitle", quiz.title)
-                await AsyncStorage.setItem("quizAuthor", quiz.author)
+                await AsyncStorage.setItem('quizTitle', quiz.title)
+                await AsyncStorage.setItem('quizAuthor', quiz.author)
               }}
             >
               <Link component={TouchableOpacity} to='course-details'>
@@ -78,12 +78,12 @@ const Dashboard = () => {
   )
 }
 
-const lightColor = "#f2f6ff"
-const darkColor = "#405e87"
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const breadCrumb = {
   marginTop: 20,
-  alignSelf: "flex-start"
+  alignSelf: 'flex-start'
 }
 
 const breadCrumbText = {
@@ -94,43 +94,43 @@ const breadCrumbText = {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "column",
-    color: "#405e87",
+    display: 'flex',
+    flexDirection: 'column',
+    color: '#405e87',
     marginLeft: 30
   },
   breadCrumb: breadCrumb,
   breadCrumbText: breadCrumbText,
   welcome: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     marginTop: 20
   },
   welcomeName: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginLeft: 10,
     color: darkColor
   },
   dashboardHeading: {
     marginTop: 20,
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: darkColor
   },
   dashboardExamsBoxes: {
-    display: "flex"
+    display: 'flex'
   },
   dashboardExamsBox: {
     marginTop: 25,
     marginBottom: 25,
     marginLeft: 3,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     width: 250,
     backgroundColor: lightColor,
     padding: 25,
     borderRadius: 25,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   boxTitle: {
     marginBottom: 10,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: darkColor
   },
   boxAuthor: {
@@ -149,9 +149,9 @@ const styles = StyleSheet.create({
   },
   boxPrice: {
     marginTop: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: darkColor,
-    alignSelf: "flex-end"
+    alignSelf: 'flex-end'
   }
 })
 

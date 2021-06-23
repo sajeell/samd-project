@@ -1,20 +1,20 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity
-} from "react-native"
-import { Link } from "react-router-native"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useQuery } from "urql"
+} from 'react-native'
+import { Link } from 'react-router-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useQuery } from 'urql'
 
 const CourseDetails = () => {
   const [quizId, setQuizId] = useState(0)
 
   try {
-    AsyncStorage.getItem("quizId").then((response) => {
+    AsyncStorage.getItem('quizId').then((response) => {
       setQuizId(response)
     })
   } catch (e) {
@@ -85,15 +85,15 @@ const CourseDetails = () => {
     </ScrollView>
   )
 }
-const lightColor = "#f2f6ff"
-const darkColor = "#405e87"
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const breadCrumb = {
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
   marginTop: 20,
-  alignSelf: "flex-start",
+  alignSelf: 'flex-start',
   marginLeft: 30
 }
 
@@ -107,25 +107,25 @@ const styles = StyleSheet.create({
   breadCrumb: breadCrumb,
   breadCrumbText: breadCrumbText,
   courseDetailWrapper: {
-    display: "flex",
-    justifyContent: "space-between",
+    display: 'flex',
+    justifyContent: 'space-between',
     marginTop: 20,
     marginLeft: 30
   },
   courseDetailRow: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     marginBottom: 20
   },
   rowContent: {
-    fontWeight: "bold",
-    textAlign: "justify",
+    fontWeight: 'bold',
+    textAlign: 'justify',
     marginLeft: 15,
     maxWidth: 260,
     color: darkColor
   },
   button: {
-    alignSelf: "center",
+    alignSelf: 'center',
     backgroundColor: darkColor,
     marginTop: 10,
     paddingVertical: 10,
@@ -134,17 +134,17 @@ const styles = StyleSheet.create({
     width: 350
   },
   formRow4: {
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 5,
     marginTop: 16,
     width: 320,
-    alignSelf: "center",
+    alignSelf: 'center',
     backgroundColor: darkColor,
-    color: "white",
+    color: 'white',
     paddingVertical: 10
   },
   buttonText: {
-    textAlign: "center",
+    textAlign: 'center',
     color: lightColor
   }
 })

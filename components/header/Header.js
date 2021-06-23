@@ -1,13 +1,13 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   Pressable,
   TouchableOpacity
-} from "react-native"
-import { Link } from "react-router-native"
-import auth from "@react-native-firebase/auth"
+} from 'react-native'
+import { Link } from 'react-router-native'
+import auth from '@react-native-firebase/auth'
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false)
@@ -51,7 +51,7 @@ const Header = () => {
               e.preventDefault()
               auth()
                 .signOut()
-                .then(() => alert("Signed out!"))
+                .then(() => alert('Signed out!'))
             }}
           >
             <Text style={styles.headerMenuItem}>LOG OUT</Text>
@@ -62,34 +62,34 @@ const Header = () => {
   }
 }
 
-const lightColor = "#f2f6ff"
-const darkColor = "#405e87"
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const styles = StyleSheet.create({
   header: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    overflow: "hidden",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    overflow: 'hidden',
     height: 50,
-    width: "100%",
+    width: '100%',
     backgroundColor: lightColor
   },
   title: {
     marginLeft: 30,
     letterSpacing: 5,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: darkColor
   },
   headerDots: {
     color: darkColor,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginRight: 30,
     fontSize: 20
   },
   headerMenu: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     paddingVertical: 20,
     paddingHorizontal: 25,
     backgroundColor: lightColor

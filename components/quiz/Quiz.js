@@ -1,16 +1,16 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView
-} from "react-native"
-import { RadioButton } from "react-native-paper"
-import { Link } from "react-router-native"
-import { useQuery, useMutation } from "urql"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import auth from "@react-native-firebase/auth"
+} from 'react-native'
+import { RadioButton } from 'react-native-paper'
+import { Link } from 'react-router-native'
+import { useQuery, useMutation } from 'urql'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import auth from '@react-native-firebase/auth'
 
 const Quiz = () => {
   const firebaseUser = auth().currentUser
@@ -25,26 +25,26 @@ const Quiz = () => {
   const [marksObtained, setMarksObtained] = useState(0)
   const [quizId, setQuizId] = useState(0)
   const [userId, setUserId] = useState(firebaseUser.uid)
-  const [quizTitle, setQuizTitle] = useState("")
-  const [quizAuthor, setQuizAuthor] = useState("")
+  const [quizTitle, setQuizTitle] = useState('')
+  const [quizAuthor, setQuizAuthor] = useState('')
 
-  AsyncStorage.getItem("quizTotalMarks").then((response) => {
+  AsyncStorage.getItem('quizTotalMarks').then((response) => {
     setQuizTotalMarks(parseInt(response))
   })
 
-  AsyncStorage.getItem("quizTitle").then((response) => {
+  AsyncStorage.getItem('quizTitle').then((response) => {
     setQuizTitle(response)
   })
 
-  AsyncStorage.getItem("quizId").then((response) => {
+  AsyncStorage.getItem('quizId').then((response) => {
     setQuizId(response)
   })
 
-  AsyncStorage.getItem("quizAuthor").then((response) => {
+  AsyncStorage.getItem('quizAuthor').then((response) => {
     setQuizAuthor(response)
   })
 
-  AsyncStorage.getItem("quizTotalQuestions").then((response) => {
+  AsyncStorage.getItem('quizTotalQuestions').then((response) => {
     setQuizTotalQuestions(response)
   })
 
@@ -122,7 +122,7 @@ const Quiz = () => {
             <View style={styles.rowLeft}>
               <RadioButton
                 value={true}
-                status={isChoiceOne === true ? "checked" : "unchecked"}
+                status={isChoiceOne === true ? 'checked' : 'unchecked'}
                 onPress={() => {
                   if (isChoiceOne === false) {
                     setIsChoiceTwo(false)
@@ -144,7 +144,7 @@ const Quiz = () => {
             <View style={styles.rowLeft}>
               <RadioButton
                 value={true}
-                status={isChoiceTwo === true ? "checked" : "unchecked"}
+                status={isChoiceTwo === true ? 'checked' : 'unchecked'}
                 onPress={() => {
                   if (isChoiceTwo === false) {
                     setIsChoiceOne(false)
@@ -166,7 +166,7 @@ const Quiz = () => {
             <View style={styles.rowLeft}>
               <RadioButton
                 value={true}
-                status={isChoiceThree === true ? "checked" : "unchecked"}
+                status={isChoiceThree === true ? 'checked' : 'unchecked'}
                 onPress={() => {
                   if (isChoiceThree === false) {
                     setIsChoiceOne(false)
@@ -188,7 +188,7 @@ const Quiz = () => {
             <View style={styles.rowLeft}>
               <RadioButton
                 value={true}
-                status={isChoiceFour === true ? "checked" : "unchecked"}
+                status={isChoiceFour === true ? 'checked' : 'unchecked'}
                 onPress={() => {
                   if (isChoiceFour === false) {
                     setIsChoiceOne(false)
@@ -220,7 +220,7 @@ const Quiz = () => {
           onPress={async (e) => {
             e.persist()
             if (choiceIsTrue) {
-              setMarksObtained(marksObtained + 2)
+              setMarksObtained(marksObtained + 1)
             } else {
               setMarksObtained(marksObtained)
             }
@@ -241,7 +241,7 @@ const Quiz = () => {
             onTouchStart={async (e) => {
               {
                 if (choiceIsTrue) {
-                  setMarksObtained(marksObtained + 2)
+                  setMarksObtained(marksObtained + 1)
                 } else {
                   setMarksObtained(marksObtained)
                 }
@@ -253,13 +253,13 @@ const Quiz = () => {
                   totalMarks: quizTotalMarks
                 }
                 uploadResultMutation(variables).then(async (result) => {
-                  alert("Submitted Successfully")
-                  await AsyncStorage.removeItem("marksObtained")
-                  await AsyncStorage.removeItem("quizTitle")
-                  await AsyncStorage.removeItem("quizId")
-                  await AsyncStorage.removeItem("quizAuthor")
-                  await AsyncStorage.removeItem("quizTotalMarks")
-                  await AsyncStorage.removeItem("quizTotalQuestions")
+                  alert('Submitted Successfully')
+                  await AsyncStorage.removeItem('marksObtained')
+                  await AsyncStorage.removeItem('quizTitle')
+                  await AsyncStorage.removeItem('quizId')
+                  await AsyncStorage.removeItem('quizAuthor')
+                  await AsyncStorage.removeItem('quizTotalMarks')
+                  await AsyncStorage.removeItem('quizTotalQuestions')
                 })
               }
             }}
@@ -273,8 +273,8 @@ const Quiz = () => {
     }
   }
 }
-const lightColor = "#f2f6ff"
-const darkColor = "#405e87"
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const styles = StyleSheet.create({
   container: {
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
   quizIntro: {
     marginLeft: 30,
     color: darkColor,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 18
   },
   heading: {
@@ -293,16 +293,16 @@ const styles = StyleSheet.create({
     marginTop: 7
   },
   quizContent: {
-    display: "flex",
-    alignItems: "center",
-    alignSelf: "center",
+    display: 'flex',
+    alignItems: 'center',
+    alignSelf: 'center',
     marginLeft: 20
   },
   quizRadioRow: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
     marginTop: 20,
     padding: 5,
     width: 300,
@@ -325,11 +325,11 @@ const styles = StyleSheet.create({
   questionText: {
     fontSize: 15,
     marginTop: 10,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: darkColor
   },
   button: {
-    alignSelf: "center",
+    alignSelf: 'center',
     backgroundColor: darkColor,
     marginTop: 30,
     paddingVertical: 10,
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     marginLeft: -10
   },
   buttonText: {
-    textAlign: "center",
+    textAlign: 'center',
     color: lightColor
   }
 })

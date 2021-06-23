@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -6,12 +6,32 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity
-} from "react-native"
-import { RadioButton } from "react-native-paper"
-import { Link } from "react-router-native"
+} from 'react-native'
+import { RadioButton } from 'react-native-paper'
+import { Link } from 'react-router-native'
 
 const Payment = () => {
   const [isCard, setIsCard] = useState(false)
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [cardNumber, setCardNumber] = useState('')
+  const [cvc, setCVC] = useState('')
+  const [validThru, setValidThru] = useState('')
+
+  const submitForm = () => {
+    if (
+      name === '' ||
+      email === '' ||
+      cardNumber === '' ||
+      cvc === '' ||
+      validThru === '' ||
+      isCard !== true
+    ) {
+      alert('Missing Inputs!')
+      return
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -39,6 +59,10 @@ const Payment = () => {
               style={styles.paymentInput}
               placeholder='e.g. Sajeel Ahmad'
               keyboardType='name-phone-pad'
+              value={name}
+              onChange={(e) => {
+                setName(e.nativeEvent.text)
+              }}
             ></TextInput>
           </View>
           <View style={styles.inputRow}>
@@ -47,6 +71,9 @@ const Payment = () => {
               style={styles.paymentInput}
               placeholder='e.g. abc@abc.com'
               keyboardType='email-address'
+              onChange={(e) => {
+                setEmail(e.nativeEvent.text)
+              }}
             ></TextInput>
           </View>
         </View>
@@ -57,7 +84,7 @@ const Payment = () => {
             <View style={styles.paymentMethodRowLeft}>
               <RadioButton
                 value={true}
-                status={isCard === true ? "checked" : "unchecked"}
+                status={isCard === true ? 'checked' : 'unchecked'}
                 onPress={() => {
                   setIsCard(!isCard)
                 }}
@@ -83,6 +110,10 @@ const Payment = () => {
             style={styles.paymentInput}
             placeholder='e.g. Sajeel Ahmad'
             keyboardType='name-phone-pad'
+            value={name}
+            onChange={(e) => {
+              setName(e.nativeEvent.text)
+            }}
           ></TextInput>
         </View>
         <View style={styles.inputRow}>
@@ -91,6 +122,9 @@ const Payment = () => {
             style={styles.paymentInput}
             placeholder='e.g. XXXX-XXXX-XXXX-XXXX'
             keyboardType='number-pad'
+            onChange={(e) => {
+              setCardNumber(e.nativeEvent.text)
+            }}
           ></TextInput>
         </View>
         <View style={styles.inputRow}>
@@ -99,6 +133,9 @@ const Payment = () => {
             style={styles.paymentInput}
             placeholder='e.g. XXX'
             keyboardType='number-pad'
+            onChange={(e) => {
+              setCVC(e.nativeEvent.text)
+            }}
           ></TextInput>
         </View>
         <View style={styles.inputRow}>
@@ -107,25 +144,30 @@ const Payment = () => {
             style={styles.paymentInput}
             placeholder='e.g. MM/YY'
             keyboardType='number-pad'
+            onChange={(e) => {
+              setValidThru(e.nativeEvent.text)
+            }}
           ></TextInput>
         </View>
-        <Link component={TouchableOpacity} to='/quiz'>
-          <Text style={styles.formRow4}>PAY</Text>
-        </Link>
+        <View onTouchStart={submitForm}>
+          <Link component={TouchableOpacity} to='/quiz'>
+            <Text style={styles.formRow4}>PAY</Text>
+          </Link>
+        </View>
       </ScrollView>
     </ScrollView>
   )
 }
 
-const lightColor = "#f2f6ff"
-const darkColor = "#405e87"
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const breadCrumb = {
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
   marginTop: 20,
-  alignSelf: "flex-start"
+  alignSelf: 'flex-start'
 }
 
 const breadCrumbText = {
@@ -146,7 +188,7 @@ const styles = StyleSheet.create({
   heading: {
     color: darkColor,
     marginTop: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 14
   },
   paymentTop: {
@@ -155,12 +197,12 @@ const styles = StyleSheet.create({
   borderDiv: {
     width: 200,
     paddingTop: 12,
-    borderBottomColor: "black",
+    borderBottomColor: 'black',
     borderBottomWidth: 1
   },
   personalDetails: {},
   inputRow: {
-    display: "flex"
+    display: 'flex'
   },
   inputTitle: {
     color: darkColor,
@@ -179,20 +221,20 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   paymentMethodRow: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-start"
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start'
   },
   paymentMethodRowLeft: {
     marginRight: 10
   },
   paymentMethodRowRight: {
-    display: "flex"
+    display: 'flex'
   },
   paymentMethodRowRightTitle: {
     color: darkColor,
     fontSize: 14,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   paymentMethodRowRightDescription: {
     fontSize: 12,
@@ -204,7 +246,7 @@ const styles = StyleSheet.create({
     paddingBottom: 70
   },
   button: {
-    alignSelf: "center",
+    alignSelf: 'center',
     backgroundColor: darkColor,
     marginTop: 20,
     paddingVertical: 10,
@@ -214,16 +256,16 @@ const styles = StyleSheet.create({
     marginRight: 30
   },
   formRow4: {
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 5,
     marginTop: 26,
     width: 330,
     backgroundColor: darkColor,
-    color: "white",
+    color: 'white',
     paddingVertical: 10
   },
   buttonText: {
-    textAlign: "center",
+    textAlign: 'center',
     color: lightColor
   }
 })

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   SafeAreaView,
   View,
@@ -8,30 +8,30 @@ import {
   TextInput,
   Button,
   TouchableOpacity
-} from "react-native"
-import { Link } from "react-router-native"
+} from 'react-native'
+import { Link } from 'react-router-native'
 
-import auth from "@react-native-firebase/auth"
+import auth from '@react-native-firebase/auth'
 
-import bgImage from "../../static/images/form-bg.png"
+import bgImage from '../../static/images/form-bg.png'
 const SignUp = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const signUp = (e) => {
     alert(1)
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        alert("User account created & signed in!")
+        alert('User account created & signed in!')
       })
       .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          aler("That email address is already in use!")
+        if (error.code === 'auth/email-already-in-use') {
+          aler('That email address is already in use!')
         }
 
-        if (error.code === "auth/invalid-email") {
-          alert("That email address is invalid!")
+        if (error.code === 'auth/invalid-email') {
+          alert('That email address is invalid!')
         }
 
         alert(error)
@@ -81,30 +81,30 @@ const SignUp = () => {
   )
 }
 
-const lightColor = "#f2f6ff"
-const darkColor = "#405e87"
+const lightColor = '#f2f6ff'
+const darkColor = '#405e87'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#d0ddfb",
-    display: "flex",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#d0ddfb',
+    display: 'flex',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   imageContainer: {},
   formContainer: {
     zIndex: 100,
-    position: "absolute",
-    backgroundColor: "#f2f6ff",
+    position: 'absolute',
+    backgroundColor: '#f2f6ff',
     borderRadius: 15,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     padding: 60
   },
   image: {
-    position: "relative",
+    position: 'relative',
     zIndex: 1,
     width: 365,
     height: 315
@@ -115,14 +115,14 @@ const styles = StyleSheet.create({
   },
   formRow2: {
     marginBottom: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingHorizontal: 60,
     borderRadius: 10,
     width: 250
   },
   formRow3: {
     marginBottom: 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingHorizontal: 70,
     borderRadius: 10,
     width: 250
@@ -134,18 +134,18 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   button: {
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 5,
     marginTop: 16,
     width: 150,
     backgroundColor: darkColor,
-    color: "white",
+    color: 'white',
     paddingVertical: 10
   },
   formRow5: {
-    display: "flex",
-    flexDirection: "row",
-    alignSelf: "flex-start",
+    display: 'flex',
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
     marginTop: 10,
     fontSize: 12
   },
