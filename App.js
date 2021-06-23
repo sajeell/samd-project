@@ -16,7 +16,7 @@ import { createClient, Provider, defaultExchanges } from "urql"
 // These imports load individual services into the firebase namespace.
 
 const client = createClient({
-  url: "http://192.168.232.107:4000/",
+  url: "http://10.97.10.165:4000/",
   exchanges: [devtoolsExchange, ...defaultExchanges]
 })
 

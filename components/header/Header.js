@@ -45,7 +45,6 @@ const Header = () => {
           </View>
         </View>
         <View style={styles.headerMenu}>
-          <Text style={styles.headerMenuItem}>RESULT</Text>
           <Text style={styles.headerMenuItem}>HELP</Text>
           <TouchableOpacity
             onPress={(e) => {
